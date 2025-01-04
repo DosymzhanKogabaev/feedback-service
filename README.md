@@ -18,7 +18,7 @@ Feedback Service API — это серверная часть приложени
 ### 1. Клонируйте репозиторий
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/DosymzhanKogabaev/feedback-service.git
 cd feedback-service
 ```
 
@@ -134,6 +134,7 @@ API-документация доступна по адресу:
   "user": {
     "id": 1,
     "email": "user@example.com",
+    "password": "$2b$10$fvIo7n7JydBin0zznIz18.MovJZAX7wdKUTZsPu2Vx4yb8hByan3C",
     "avatar": "https://example.com/avatar.png",
     "createdAt": "2025-01-04T12:34:56.789Z"
   }

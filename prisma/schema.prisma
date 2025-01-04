@@ -6,3 +6,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  avatar    String?  // Optional field
+  feedbacks Feedback[]
+  upvotes   Upvote[]
+  createdAt DateTime @default(now())
+}
+
+model Feedback {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  status      Status   @relation(fields: [statusId], references: [id])
+  statusId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  upvotes     Upvote[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Upvote {
+  id          Int      @id @default(autoincrement())
+  feedback    Feedback @relation(fields: [feedbackId], references: [id])
+  feedbackId  Int
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime @default(now())
+
+  @@unique([feedbackId, userId]) // Prevent multiple votes by the same user
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  feedbacks Feedback[]
+}
+
+model Status {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  feedbacks Feedback[]
+}

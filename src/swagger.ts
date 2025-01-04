@@ -14,6 +14,10 @@ const options = {
         url: 'http://localhost:5000/api',
         description: 'Local server',
       },
+      {
+        url: 'https://feedback-service-fnhf.onrender.com',
+        description: 'Production server',
+      },
     ],
     components: {
       securitySchemes: {

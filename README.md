@@ -1,36 +1,44 @@
 # Feedback Service API
 
-Feedback Service API — это серверная часть приложения для управления предложениями (фидбеками), предоставляющая пользователям возможность создавать предложения, голосовать за них и фильтровать по категориям и статусам.
+Feedback Service API is a server-side application for managing feedbacks, providing users with the ability to create suggestions, vote for them, and filter them by categories and statuses.
 
-## Стек технологий
+## Technology stack
 
-- **Node.js** с **TypeScript**
-- **Express.js** для маршрутизации
-- **Prisma ORM** для работы с базой данных
-- **PostgreSQL** как база данных
-- **Swagger** для API-документации
-- **JWT** для аутентификации
+- **Node.js** with **TypeScript**
+- **Express.js** for routing
+- **Prisma ORM** to work with the database
+- **PostgreSQL** as a database
+- **Swagger** for API documentation
+- **JWT** for authentication
 
 ---
 
-## Установка и запуск
+## Production server
 
-### 1. Клонируйте репозиторий
+The Production server is available at: [https://feedback-service-fnhf.onrender.com/api-docs](https://feedback-service-fnhf.onrender.com/api-docs)
+
+---
+
+## Installation and launch
+
+In order to launch the server locally, follow these steps:
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/DosymzhanKogabaev/feedback-service.git
 cd feedback-service
 ```
 
-### 2. Установите зависимости
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Настройте переменные окружения
+### 3. Set up environment variables
 
-Создайте файл `.env` в корне проекта и добавьте следующие переменные:
+Create a `.env` file in the root of the project and add the following variables:
 
 ```env
 DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database>"
@@ -38,87 +46,87 @@ JWT_SECRET="<your_jwt_secret>"
 PORT=5000
 ```
 
-### 4. Настройте базу данных
+### 4. Set up the database
 
-1. Синхронизируйте Prisma-схему с базой данных:
+1. Synchronize the Prisma schema with the database:
 
    ```bash
    npx prisma migrate dev --name init
    ```
 
-2. Заполните таблицы `Category` и `Status` данными:
+2. Fill the `Category` and `Status` tables with data:
 
    ```bash
    npx ts-node src/prisma/seed.ts
    ```
 
-3. Откройте Prisma Studio для просмотра данных:
+3. Open Prisma Studio to view the data:
 
    ```bash
    npx prisma studio
    ```
 
-### 5. Запустите сервер
+### 5. Start the server
 
 ```bash
 npm run dev
 ```
 
-Сервер будет запущен на [http://localhost:5000](http://localhost:5000).
+The server will be running on [http://localhost:5000](http://localhost:5000).
 
 ---
 
-## Эндпоинты
+## Endpoints
 
-### Аутентификация
+### Authentication
 
 | Метод | URL          | Описание                  |
 |-------|--------------|---------------------------|
-| POST  | `/auth/register` | Регистрация нового пользователя |
-| POST  | `/auth/login`    | Авторизация пользователя      |
-| GET   | `/auth/me`       | Получение данных текущего пользователя |
+| POST  | `/auth/register` | New User Registration |
+| POST  | `/auth/login`    | User authorization      |
+| GET   | `/auth/me`       | Getting current user data |
 
 ### Предложения (Feedback)
 
 | Метод | URL            | Описание                             |
 |-------|----------------|--------------------------------------|
-| GET   | `/feedback`    | Получение всех предложений           |
-| POST  | `/feedback`    | Создание нового предложения          |
-| GET   | `/feedback/{id}` | Получение предложения по ID          |
-| PUT   | `/feedback/{id}` | Обновление предложения               |
-| DELETE| `/feedback/{id}` | Удаление предложения                 |
+| GET   | `/feedback`    | Receive all feedbacks           |
+| POST  | `/feedback`    | Create a new feedback          |
+| GET   | `/feedback/{id}` | Receive a feedback data by ID          |
+| PUT   | `/feedback/{id}` | Update a feedback by ID               |
+| DELETE| `/feedback/{id}` | Delete a feedback by ID                 |
 
-### Голосование (Upvotes)
+### Upvotes
 
 | Метод | URL              | Описание                             |
 |-------|------------------|--------------------------------------|
-| POST  | `/upvotes/{id}`  | Добавление голоса за предложение     |
-| DELETE| `/upvotes/{id}`  | Удаление голоса                      |
+| POST  | `/upvotes/{id}`  | Add an upvote for a feedback by its ID     |
+| DELETE| `/upvotes/{id}`  | Delete an upvote by feedback's ID  |
 
 ### Категории и Статусы
 
 | Метод | URL             | Описание                  |
 |-------|-----------------|---------------------------|
-| GET   | `/categories`   | Получение списка категорий |
-| GET   | `/statuses`     | Получение списка статусов |
+| GET   | `/categories`   | Get the list of all categories |
+| GET   | `/statuses`     | Get the list of all statuses |
 
 ---
 
-## Swagger-документация
+## Swagger documentation
 
-API-документация доступна по адресу:
+API documentation will be available at:
 
 [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
 
 ---
 
-## Примеры запросов
+## Examples of queries
 
-### Регистрация пользователя
+### User registration
 
 **URL:** `POST /auth/register`
 
-**Пример тела запроса:**
+**Request body example:**
 ```json
 {
   "email": "user@example.com",
@@ -127,7 +135,7 @@ API-документация доступна по адресу:
 }
 ```
 
-**Пример ответа:**
+**Result example:**
 ```json
 {
   "message": "User registered successfully",
@@ -143,9 +151,9 @@ API-документация доступна по адресу:
 
 ---
 
-## Разработка
+## Development
 
-### Скрипты
+### Scripts
 
 - `npm run dev` — Запуск сервера в режиме разработки
 - `npm run build` — Сборка проекта в папку `dist`
